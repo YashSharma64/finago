@@ -23,6 +23,32 @@ const Chat = ({ userData }) => {
     setInput(e.target.value);
   };
 
+  // Clean up Gemini API responses to remove internal thought processes
+  const cleanResponse = (text) => {
+    // Remove option-style formatting
+    text = text.replace(/\*\*Option \d+.*?\*\*:?/gi, '');
+    
+    // Remove text in double asterisks that looks like internal thoughts
+    text = text.replace(/\*\*(Which option is best.*?)\*\*/gi, '');
+    text = text.replace(/\*\*(Assuming.*?)\*\*/gi, '');
+    text = text.replace(/\*\*(.*?context.*?)\*\*/gi, '');
+    
+    // Remove quotes around responses
+    text = text.replace(/["']([^"']*)["']/g, '$1');
+    
+    // If the response contains multiple options, just take the last one (usually the actual response)
+    if (text.includes("Hi Vivek") || text.includes("Hi, Vivek")) {
+      const sentences = text.split(/(?<=[.!?])\s+/);
+      const lastSentences = sentences.slice(-3).join(' '); // Take the last 3 sentences
+      
+      if (lastSentences.length > 10) {
+        text = lastSentences;
+      }
+    }
+    
+    return text.trim();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -47,7 +73,12 @@ const Chat = ({ userData }) => {
           contents: [
             {
               parts: [
-                { text: `User ${userData?.name || 'Anonymous'} asks about finance: ${input}` }
+                { text: `You are a personal finance AI assistant named Finago. Your user is ${userData?.name || 'Anonymous'}.
+                
+                Respond directly to the user's question without showing your thought process or multiple options.
+                Be concise, conversational and helpful. Provide valuable financial advice.
+                
+                User's message: ${input}` }
               ]
             }
           ],
@@ -70,7 +101,10 @@ const Chat = ({ userData }) => {
       console.log('Gemini response:', data);
       
       // Extract the response from the Gemini API format
-      const assistantResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated';
+      let assistantResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated';
+      
+      // Clean up the response
+      assistantResponse = cleanResponse(assistantResponse);
       
       // Add assistant message
       setMessages(prev => [
