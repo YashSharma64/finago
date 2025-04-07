@@ -1,0 +1,88 @@
+.login-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
+
+.login-modal {
+  background: white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.login-content {
+  text-align: center;
+}
+
+.login-content h2 {
+  color: #2d4778;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-bottom: 2px solid #e2e8f0;
+  font-size: 1rem;
+  color: #333;
+  transition: border-color 0.3s ease;
+  background: transparent;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-bottom-color: #6366F1;
+}
+
+.form-group input::placeholder {
+  color: #a0aec0;
+}
+
+.continue-button {
+  background-color: #6366F1;
+  color: white;
+  border: none;
+  padding: 1rem 3rem;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.continue-button:hover {
+  background-color: #4F46E5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(99, 102, 241, 0.2);
+} 
