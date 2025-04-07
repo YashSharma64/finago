@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 import '../styles/Chat.css';
 
 const Chat = ({ userData }) => {
@@ -23,25 +24,21 @@ const Chat = ({ userData }) => {
     setInput(e.target.value);
   };
 
-  // Clean up Gemini API responses to remove internal thought processes
+  // Only clean up the response structure, but preserve markdown formatting
   const cleanResponse = (text) => {
-    // Remove option-style formatting
-    text = text.replace(/\*\*Option \d+.*?\*\*:?/gi, '');
+    // Remove option-style header text but keep the content
+    text = text.replace(/\*\*Option \d+.*?\*\*:\s*/gi, '');
     
-    // Remove text in double asterisks that looks like internal thoughts
+    // Remove internal thought process indicators
     text = text.replace(/\*\*(Which option is best.*?)\*\*/gi, '');
     text = text.replace(/\*\*(Assuming.*?)\*\*/gi, '');
-    text = text.replace(/\*\*(.*?context.*?)\*\*/gi, '');
     
-    // Remove quotes around responses
-    text = text.replace(/["']([^"']*)["']/g, '$1');
-    
-    // If the response contains multiple options, just take the last one (usually the actual response)
-    if (text.includes("Hi Vivek") || text.includes("Hi, Vivek")) {
+    // If the response contains multiple options or looks like internal deliberation
+    if (text.includes("**Option") || text.includes("context")) {
       const sentences = text.split(/(?<=[.!?])\s+/);
-      const lastSentences = sentences.slice(-3).join(' '); // Take the last 3 sentences
+      const lastSentences = sentences.slice(-5).join(' '); // Take the last 5 sentences
       
-      if (lastSentences.length > 10) {
+      if (lastSentences.length > 20) {
         text = lastSentences;
       }
     }
@@ -75,8 +72,9 @@ const Chat = ({ userData }) => {
               parts: [
                 { text: `You are a personal finance AI assistant named Finago. Your user is ${userData?.name || 'Anonymous'}.
                 
-                Respond directly to the user's question without showing your thought process or multiple options.
-                Be concise, conversational and helpful. Provide valuable financial advice.
+                Respond directly to the user's question. You can use markdown formatting for emphasis, lists, tables, etc.
+                Use **bold text** for important points. Format your responses well with proper headings and sections.
+                Be concise but thorough. Provide valuable financial advice.
                 
                 User's message: ${input}` }
               ]
@@ -103,7 +101,7 @@ const Chat = ({ userData }) => {
       // Extract the response from the Gemini API format
       let assistantResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated';
       
-      // Clean up the response
+      // Clean up the response structure but preserve markdown
       assistantResponse = cleanResponse(assistantResponse);
       
       // Add assistant message
@@ -145,7 +143,13 @@ const Chat = ({ userData }) => {
               <span className="message-avatar">
                 {message.role === 'user' ? '👤' : '🤖'}
               </span>
-              <div className="message-content">{message.content}</div>
+              <div className="message-content">
+                {message.role === 'assistant' ? (
+                  <ReactMarkdown>{message.content}</ReactMarkdown>
+                ) : (
+                  message.content
+                )}
+              </div>
             </div>
           ))
         )}
