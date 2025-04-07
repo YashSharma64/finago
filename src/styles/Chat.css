@@ -1,0 +1,145 @@
+/* Chat component styles */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: #2d2d3a;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-height: 600px;
+}
+
+.empty-chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #a0aec0;
+  padding: 2rem;
+  gap: 1rem;
+}
+
+.ai-icon {
+  font-size: 3rem;
+}
+
+.message {
+  display: flex;
+  gap: 1rem;
+  max-width: 90%;
+}
+
+.user-message {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.assistant-message {
+  align-self: flex-start;
+}
+
+.message-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.message-content {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 12px;
+  color: white;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.user-message .message-content {
+  background: rgba(99, 102, 241, 0.6);
+}
+
+/* Typing indicator */
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem;
+  width: 80px;
+  height: 40px;
+}
+
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.6);
+  opacity: 0.6;
+  animation: bounce 1s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Override any existing styles to fit into the dashboard */
+.chat-input-container {
+  margin-top: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.search-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: opacity 0.2s ease;
+}
+
+.search-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.search-button:not(:disabled):hover {
+  opacity: 1;
+}
+
+.search-icon {
+  font-size: 1.2rem;
+}
