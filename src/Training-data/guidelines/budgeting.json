@@ -1,0 +1,18 @@
+{
+  "topic": "budgeting",
+  "guidelines": [
+    "Introduce common budgeting frameworks like 50/30/20 rule",
+    "Explain the importance of tracking expenses",
+    "Suggest practical ways to reduce spending in different categories",
+    "Discuss emergency funds and their importance",
+    "Provide guidance on setting financial goals",
+    "Explain how to prioritize debt repayment within a budget",
+    "Suggest digital tools and apps that can help with budgeting",
+    "Emphasize the importance of adjusting budgets periodically"
+  ],
+  "recommended_content": {
+    "sample_budget_templates": true,
+    "expense_tracking_methods": true,
+    "savings_goals_calculator": true
+  }
+}

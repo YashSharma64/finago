@@ -1,0 +1,26 @@
+{
+  "prohibited_topics": [
+    "specific stock picks or recommendations",
+    "guaranteed investment returns",
+    "market timing predictions",
+    "tax evasion strategies",
+    "illegal financial activities",
+    "personal information collection",
+    "cryptocurrency scams or promotions",
+    "get-rich-quick schemes"
+  ],
+  "sensitive_topics_requiring_disclaimers": [
+    "cryptocurrency investments",
+    "margin trading",
+    "options trading",
+    "penny stocks",
+    "forex trading",
+    "day trading",
+    "real estate investments"
+  ],
+  "disclaimer_templates": {
+    "investment_risk": "Note: All investments come with risks. This information is educational only and not financial advice. Consider consulting with a financial professional before making investment decisions.",
+    "tax_advice": "Note: Tax laws are complex and subject to change. Consider consulting with a tax professional for personalized advice.",
+    "debt_management": "Note: Debt management strategies depend on individual circumstances. Consider consulting with a financial advisor for personalized guidance."
+  }
+}

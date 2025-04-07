@@ -1,0 +1,38 @@
+{
+  "topic": "budgeting",
+  "sample_questions": [
+    "How do I create a monthly budget?",
+    "What is the 50/30/20 rule?",
+    "How can I track my expenses better?",
+    "How do I stick to a budget?"
+  ],
+  "response_template": {
+    "intro": "Creating and following a budget is fundamental to achieving financial stability and reaching your financial goals.",
+    "budget_creation_steps": [
+      "Calculate your total monthly income after taxes",
+      "List and categorize all your expenses (fixed and variable)",
+      "Track your spending for 1-2 months to understand your habits",
+      "Allocate funds to different categories based on your needs and goals",
+      "Review and adjust your budget regularly"
+    ],
+    "budget_frameworks": {
+      "50_30_20_rule": "The 50/30/20 rule suggests allocating 50% of your income to needs (housing, food, utilities), 30% to wants (entertainment, dining out), and 20% to savings and debt repayment.",
+      "zero_based_budgeting": "Zero-based budgeting assigns every dollar of your income a specific purpose, so your income minus expenses equals zero.",
+      "envelope_system": "The envelope system involves placing cash for different expense categories in separate envelopes and only spending what's in each envelope."
+    },
+    "tracking_methods": {
+      "apps": ["Mint", "YNAB (You Need A Budget)", "Personal Capital", "EveryDollar"],
+      "spreadsheets": "Creating your own spreadsheet in Excel or Google Sheets",
+      "traditional": "Pen and paper tracking or using a budgeting journal"
+    },
+    "sticking_to_budget_tips": [
+      "Automate savings and bill payments",
+      "Use cash for discretionary spending",
+      "Review your budget regularly",
+      "Build in some flexibility for unexpected expenses",
+      "Find an accountability partner",
+      "Celebrate small wins and milestones"
+    ],
+    "conclusion": "Remember that budgeting is a skill that improves with practice. Don't get discouraged if you don't get it perfect right away. The goal is progress, not perfection."
+  }
+}

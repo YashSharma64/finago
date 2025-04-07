@@ -1,15 +1,31 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { buildTrainingContext } from '../utils/trainingContext';
 import '../styles/Chat.css';
 
 const Chat = ({ userData }) => {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [trainingContext, setTrainingContext] = useState('');
   const messagesEndRef = useRef(null);
 
   // Get API key from environment variable
   const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+  
+  // Load training context on component mount
+  useEffect(() => {
+    const loadContext = async () => {
+      try {
+        const context = await buildTrainingContext();
+        setTrainingContext(context);
+      } catch (error) {
+        console.error("Error loading training context:", error);
+      }
+    };
+    
+    loadContext();
+  }, []);
   
   // Auto-scroll to bottom when messages update
   useEffect(() => {
@@ -60,6 +76,17 @@ const Chat = ({ userData }) => {
     setIsLoading(true);
     
     try {
+      // Prepare prompt with training context
+      const promptWithContext = `${trainingContext}
+
+User: ${userData?.name || 'Anonymous'}
+Date: ${new Date().toLocaleDateString()}
+Previous messages: ${messages.map(m => `${m.role === 'user' ? 'User' : 'Finago'}: ${m.content}`).join('\n')}
+
+Current question: ${input}
+
+Instructions: Respond as Finago, the AI financial assistant. Follow all guidelines and restrictions in the training context above. Format your response using Markdown for readability.`;
+
       // Directly use the Gemini API with fetch
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
         method: 'POST',
@@ -70,13 +97,7 @@ const Chat = ({ userData }) => {
           contents: [
             {
               parts: [
-                { text: `You are a personal finance AI assistant named Finago. Your user is ${userData?.name || 'Anonymous'}.
-                
-                Respond directly to the user's question. You can use markdown formatting for emphasis, lists, tables, etc.
-                Use **bold text** for important points. Format your responses well with proper headings and sections.
-                Be concise but thorough. Provide valuable financial advice.
-                
-                User's message: ${input}` }
+                { text: promptWithContext }
               ]
             }
           ],

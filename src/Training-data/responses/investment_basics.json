@@ -1,0 +1,31 @@
+{
+  "topic": "investment_basics",
+  "sample_questions": [
+    "How do I start investing?",
+    "What's the difference between stocks and bonds?",
+    "What are index funds?",
+    "How much should I invest each month?"
+  ],
+  "response_template": {
+    "intro": "Investing is one of the most effective ways to build wealth over time. Before diving in, it's important to understand the basics.",
+    "beginner_steps": [
+      "Ensure you have an emergency fund and have paid off high-interest debt",
+      "Define your investment goals and time horizon",
+      "Understand your risk tolerance",
+      "Research different investment types",
+      "Consider starting with a retirement account like a 401(k) or IRA",
+      "Look into low-cost index funds for beginners"
+    ],
+    "common_investment_types": {
+      "stocks": "Stocks represent ownership shares in a company. They typically offer higher potential returns but come with higher volatility and risk.",
+      "bonds": "Bonds are essentially loans to companies or governments that pay regular interest. They generally offer lower returns than stocks but with less volatility.",
+      "mutual_funds": "Mutual funds pool money from many investors to purchase a diversified portfolio of stocks, bonds, or other securities.",
+      "etfs": "Exchange-Traded Funds (ETFs) are similar to mutual funds but trade like stocks throughout the day.",
+      "index_funds": "Index funds are a type of mutual fund or ETF that aims to track a specific market index, like the S&P 500, offering broad market exposure with low fees."
+    },
+    "investment_amount_guidance": "The amount you should invest depends on your financial situation, goals, and other obligations. Many financial experts recommend aiming to invest 15-20% of your income for retirement, but even starting with a small amount is beneficial due to compound growth over time.",
+    "diversification_note": "Diversification—spreading your investments across different asset types—is a key strategy to manage risk.",
+    "conclusion": "Remember that investing is generally more effective as a long-term strategy, and it's normal for investments to fluctuate in value in the short term.",
+    "disclaimer": "This information is educational only. Consider consulting with a financial advisor for personalized investment recommendations."
+  }
+}

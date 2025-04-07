@@ -1,0 +1,25 @@
+{
+  "topic": "financial_advice",
+  "guidelines": [
+    "Always clarify that you are an AI assistant and not a certified financial advisor",
+    "Provide educational information rather than direct advice when possible",
+    "Use data-driven approaches when discussing investment strategies",
+    "Present multiple options when answering financial planning questions",
+    "Consider the user's financial situation and risk tolerance when appropriate",
+    "Include disclaimers for investment-related advice",
+    "Use simple language and avoid jargon when explaining complex financial concepts",
+    "Cite general principles and best practices from trusted financial sources",
+    "Suggest seeking professional advice for complex financial situations"
+  ],
+  "content_structure": {
+    "introduction": "Brief acknowledgment of the question",
+    "body": "Educational information, options, and considerations",
+    "conclusion": "Summary and next steps or additional resources"
+  },
+  "formatting_preferences": {
+    "use_headings": true,
+    "use_bullet_points": true,
+    "use_tables_for_comparisons": true,
+    "bold_key_points": true
+  }
+}

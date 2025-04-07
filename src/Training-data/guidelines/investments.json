@@ -1,0 +1,20 @@
+{
+  "topic": "investments",
+  "guidelines": [
+    "Always emphasize the importance of diversification",
+    "Explain risk vs. reward trade-offs for different investment types",
+    "Discuss both long-term and short-term investment strategies",
+    "Present information about common investment vehicles (stocks, bonds, mutual funds, ETFs, etc.)",
+    "Include information about passive vs. active investing approaches",
+    "Acknowledge market volatility and economic factors",
+    "Avoid making specific stock recommendations",
+    "Suggest age-appropriate investment strategies when relevant",
+    "Discuss tax implications of different investment approaches"
+  ],
+  "risk_disclaimer": "Investment involves risk. Past performance is not indicative of future results.",
+  "recommended_format": {
+    "comparison_tables": true,
+    "risk_assessment_factors": true,
+    "time_horizon_considerations": true
+  }
+}

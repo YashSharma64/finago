@@ -1,0 +1,26 @@
+{
+  "topic": "emergency_fund",
+  "sample_questions": [
+    "How do I start an emergency fund?",
+    "How much should I have in my emergency fund?",
+    "Where should I keep my emergency savings?"
+  ],
+  "response_template": {
+    "intro": "Building an emergency fund is a crucial step toward financial stability.",
+    "recommended_size": "Financial experts typically recommend saving 3-6 months of essential expenses in your emergency fund. If your income is variable or you're self-employed, consider aiming for 6-12 months.",
+    "step_by_step": [
+      "Start by setting a small initial goal, like $1,000",
+      "Open a dedicated high-yield savings account",
+      "Set up automatic transfers to make saving consistent",
+      "Gradually increase contributions as your finances allow",
+      "Consider your emergency fund fully funded when it reaches 3-6 months of expenses"
+    ],
+    "where_to_keep": "Your emergency fund should be kept in an account that's liquid (easy to access), secure, and ideally earning some interest. High-yield savings accounts are generally recommended because they offer better interest rates than regular savings accounts while maintaining easy access.",
+    "common_mistakes": [
+      "Keeping emergency funds in investment accounts where they could lose value",
+      "Using credit cards as an emergency fund substitute",
+      "Making the funds too accessible for non-emergencies"
+    ],
+    "conclusion": "Remember that having an emergency fund isn't just about financial preparedness—it also provides peace of mind knowing you can handle unexpected expenses without going into debt."
+  }
+}
