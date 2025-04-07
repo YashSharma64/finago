@@ -7,6 +7,9 @@ const Chat = ({ userData }) => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
+  // Get API key from environment variable
+  const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+  
   // Auto-scroll to bottom when messages update
   useEffect(() => {
     scrollToBottom();
@@ -27,47 +30,63 @@ const Chat = ({ userData }) => {
     
     // Add user message
     const userMessage = { role: 'user', content: input };
-    setMessages([...messages, userMessage]);
+    setMessages(prev => [...prev, userMessage]);
     
     // Clear input
     setInput('');
     setIsLoading(true);
     
     try {
-      // Call Ollama API
-      const response = await fetch('http://localhost:11434/api/generate', {
+      // Directly use the Gemini API with fetch
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: 'llama3', // or any model you have in Ollama
-          prompt: input,
-          stream: false
+          contents: [
+            {
+              parts: [
+                { text: `User ${userData?.name || 'Anonymous'} asks about finance: ${input}` }
+              ]
+            }
+          ],
+          generationConfig: {
+            temperature: 0.7,
+            topK: 40,
+            topP: 0.95,
+            maxOutputTokens: 1024,
+          },
         }),
       });
       
       if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
+        const errorData = await response.json();
+        console.error('Gemini API error:', errorData);
+        throw new Error(errorData.error?.message || 'Error calling Gemini API');
       }
       
       const data = await response.json();
+      console.log('Gemini response:', data);
+      
+      // Extract the response from the Gemini API format
+      const assistantResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated';
       
       // Add assistant message
       setMessages(prev => [
         ...prev, 
         { 
           role: 'assistant', 
-          content: data.response
+          content: assistantResponse
         }
       ]);
     } catch (error) {
-      console.error('Error calling Ollama:', error);
+      console.error('Error calling Gemini API:', error);
       setMessages(prev => [
         ...prev, 
         { 
           role: 'assistant', 
-          content: 'Sorry, I encountered an error. Please make sure Ollama is running at http://localhost:11434/'
+          content: `Sorry, I encountered an error with the AI service: ${error.message}`
         }
       ]);
     } finally {
@@ -81,7 +100,7 @@ const Chat = ({ userData }) => {
         {messages.length === 0 ? (
           <div className="empty-chat">
             <span className="ai-icon">🤖</span>
-            <p>Ask me anything about your finances, investments, or budgeting!</p>
+            <p>Hello {userData?.name || 'there'}! Ask me anything about your finances, investments, or budgeting!</p>
           </div>
         ) : (
           messages.map((message, index) => (
