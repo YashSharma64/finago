@@ -365,7 +365,7 @@
   font-size: 1.2rem;
 }
 
-
+/* Mobile Responsive Styles */
 @media (max-width: 768px) {
   .dashboard {
     min-height: 100vh;
@@ -373,10 +373,24 @@
 
   .dashboard-nav {
     padding: 0.5rem 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  .nav-logo {
+    height: 35px;
+    margin-left: 0;
+    display: flex;
+    align-items: center;
   }
 
   .nav-logo img {
-    width: 80px;
+    width: auto;
+    height: 100%;
+    object-fit: contain;
   }
 
   .profile-button img {
@@ -386,13 +400,22 @@
 
   .dashboard-content {
     flex-direction: column;
+    margin-top: 60px;
+  }
+
+  .main-area {
+    order: 1;
+    padding: 1rem;
+    width: 100%;
   }
 
   .sidebar {
+    order: 2;
     width: 100%;
     padding: 1rem;
     border-right: none;
-    border-bottom: 1px solid #e0e0e0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 1rem;
   }
 
   .feature-list {
@@ -419,10 +442,6 @@
 
   .promo-content p {
     font-size: 0.9rem;
-  }
-
-  .main-area {
-    padding: 1rem;
   }
 
   .nav-menu {
@@ -497,13 +516,22 @@
 }
 
 @media (max-width: 480px) {
+  .nav-logo {
+    height: 30px;
+  }
+
   .nav-logo img {
-    width: 60px;
+    width: auto;
+    height: 100%;
   }
 
   .profile-button img {
     width: 25px;
     height: 25px;
+  }
+
+  .dashboard-content {
+    margin-top: 50px;
   }
 
   .feature-list li {
