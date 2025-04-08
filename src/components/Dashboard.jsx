@@ -38,17 +38,17 @@ const Dashboard = ({ userData, onLogout }) => {
     
       <nav className="dashboard-nav">
         <div className="nav-logo">
-          <img src="/image-removebg-preview.png" alt="Finago" />
+          <img src="image-removebg-preview.png" alt="Finago" />
         </div>
         <div className="nav-profile">
           <div className="profile-container" ref={profileMenuRef}>
             <button className="profile-button" onClick={toggleProfileMenu}>
-              <img src="/profile.png" alt="Profile" />
+              <img src="profile.png" alt="Profile" />
             </button>
             {showProfileMenu && (
               <div className="profile-dropdown">
                 <div className="profile-header">
-                  <img src="/profile.png" alt="Profile" className="dropdown-avatar" />
+                  <img src="profile.png" alt="Profile" className="dropdown-avatar" />
                   <div className="profile-info">
                     <h3>{userData?.name || 'User'}</h3>
                     <p>{userData?.email || 'email@example.com'}</p>
