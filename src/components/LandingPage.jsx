@@ -32,26 +32,15 @@ const LandingPage = ({ onGetStarted, onLoginClick }) => {
           
           <div className="about-content">
             <p>
-              Finago is India's first AI-powered financial advisor dedicated to
-              transforming the way Indians manage, save, and grow their
-              money. At Finago, we believe financial wellness should be fun,
-              rewarding, and accessible to everyone—whether you're a student,
-              a salaried professional, or a growing entrepreneur.
+              Finago is India’s first AI-powered financial advisor built to simplify money management for every Indian. Our mission is to empower individuals with smart, data-driven financial decisions through intuitive technology, without needing complex knowledge or manual effort. Whether it’s tracking expenses, optimizing savings, or planning investments—Finago is your all-in-one financial guide.
             </p>
             
             <p>
-              We blend artificial intelligence with gamified saving experiences,
-              helping users develop smart money habits through exciting
-              challenges, real-time spend tracking, and personalized financial
-              insights. With Finago, your savings journey becomes engaging—
-              and your discipline is rewarded.
+              We combine the power of artificial intelligence and automation to help users understand their spending habits, receive personalized financial insights, and stay in control of their financial journey. By securely integrating with users’ bank accounts and payment data, Finago delivers timely suggestions, savings tips, and actionable advice—all in a user-friendly interface designed for Indian lifestyles.
             </p>
             
             <p>
-              From setting weekly savings goals to participating in nationwide
-              savings competitions, Finago encourages healthy financial habits
-              while offering the chance to earn real rewards, cashback, and
-              recognition.
+              At Finago, we believe managing money shouldn’t be stressful. That’s why we’ve created a seamless experience where users can monitor their finances, set personal goals, and unlock smarter ways to save and grow. With a deep understanding of the Indian mindset, Finago is not just another finance app—it’s your trusted financial companion for everyday life.
             </p>
             
             <p className="mission">
