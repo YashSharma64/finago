@@ -365,7 +365,7 @@
   font-size: 1.2rem;
 }
 
-/* Mobile Responsive Styles */
+
 @media (max-width: 768px) {
   .dashboard {
     min-height: 100vh;
