@@ -59,7 +59,7 @@ const LandingPage = ({ onGetStarted, onLoginClick }) => {
                 <p className="contact">Contact us - yashsharma.aiml@gmail.com</p>
                 <div className="social-links">
                   <a href="https://www.linkedin.com/in/yash-sharma-6960ab326/" target="_blank" rel="noopener noreferrer">
-                    <img src="/linkedin.png" alt="LinkedIn" className="social-icon" />
+                    <img src="/Linkedin.png" alt="LinkedIn" className="social-icon" />
                   </a>
                   <a href="https://wa.me/919711132445" target="_blank" rel="noopener noreferrer">
                     <img src="/whatsapp.png" alt="Instagram" className="social-icon" />
