@@ -179,9 +179,10 @@
 
 .about-content {
   background: white;
-  padding: 3rem;
+  padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
 }
 
 .about-content p {
@@ -282,58 +283,77 @@
   opacity: 1;
 }
 
-
+/* Responsive styles for founder card */
 @media (max-width: 768px) {
+  .about-section {
+    padding: 2rem 0;
+  }
+
+  .about-container {
+    padding: 0 1rem;
+  }
+
+  .about-content {
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .about-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .about-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
   .founder-card {
     flex-direction: column;
+    align-items: center;
     text-align: center;
     padding: 1.5rem;
-    gap: 1.5rem;
+    margin-top: 1.5rem;
   }
 
   .founder-image {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto;
+    margin-right: 0;
+    margin-bottom: 1rem;
   }
 
   .founder-info {
-    gap: 0.4rem;
-  }
-
-  .founder-info h3 {
-    font-size: 1.3rem;
-  }
-
-  .founder-info p {
-    font-size: 0.95rem;
-  }
-
-  .contact {
-    margin: 0.5rem auto 0;
-    padding: 0.4rem 0.8rem;
+    text-align: center;
   }
 
   .social-links {
     justify-content: center;
-    gap: 2rem;
     margin-top: 1rem;
   }
 }
 
 @media (max-width: 480px) {
+  .about-section {
+    padding: 1.5rem 0;
+  }
+
+  .about-container {
+    padding: 0;
+  }
+
+  .about-content {
+    padding: 1.2rem;
+    margin: 0;
+  }
+
+  .about-title {
+    font-size: 1.5rem;
+    padding: 0 1rem;
+  }
+
   .founder-card {
     padding: 1.2rem;
-    gap: 1.2rem;
-  }
-
-  .founder-image {
-    width: 100px;
-    height: 100px;
-  }
-
-  .founder-info {
-    gap: 0.3rem;
   }
 
   .founder-info h3 {
@@ -345,18 +365,7 @@
   }
 
   .contact {
-    padding: 0.3rem 0.7rem;
     font-size: 0.9rem;
-  }
-
-  .social-links {
-    gap: 1.5rem;
-    margin-top: 0.8rem;
-  }
-
-  .social-icon {
-    width: 25px;
-    height: 25px;
   }
 }
 
