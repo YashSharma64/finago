@@ -10,9 +10,8 @@ const Chat = ({ userData }) => {
   const [trainingContext, setTrainingContext] = useState('');
   const messagesEndRef = useRef(null);
 
-
-  const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
   
+  const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
   useEffect(() => {
     const loadContext = async () => {
@@ -27,8 +26,7 @@ const Chat = ({ userData }) => {
     loadContext();
   }, []);
   
-
-
+  
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -39,14 +37,14 @@ const Chat = ({ userData }) => {
 
  
   const cleanResponse = (text) => {
- 
+   
     text = text.replace(/\*\*Option \d+.*?\*\*:\s*/gi, '');
     
-
+   
     text = text.replace(/\*\*(Which option is best.*?)\*\*/gi, '');
     text = text.replace(/\*\*(Assuming.*?)\*\*/gi, '');
     
-    
+   
     if (text.includes("**Option") || text.includes("context")) {
       const sentences = text.split(/(?<=[.!?])\s+/);
       const lastSentences = sentences.slice(-5).join(' '); 
@@ -64,16 +62,16 @@ const Chat = ({ userData }) => {
     
     if (!input.trim()) return;
     
-   =
+  
     const userMessage = { role: 'user', content: input };
     setMessages(prev => [...prev, userMessage]);
     
- 
+   
     setInput('');
     setIsLoading(true);
     
     try {
-      
+     
       const promptWithContext = `${trainingContext}
 
 User: ${userData?.name || 'Anonymous'}
@@ -84,7 +82,7 @@ Current question: ${input}
 
 Instructions: Respond as Finago, the AI financial assistant. Follow all guidelines and restrictions in the training context above. Format your response using Markdown for readability.`;
 
-  
+     
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
         method: 'POST',
         headers: {
@@ -116,7 +114,7 @@ Instructions: Respond as Finago, the AI financial assistant. Follow all guidelin
       const data = await response.json();
       console.log('Gemini response:', data);
       
-     
+    
       let assistantResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated';
       
       
