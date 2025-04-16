@@ -1,13 +1,12 @@
-
+/* Chat component styles */
 .chat-container {
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
-  background: #2d2d3a;
+  background: #1a1a1a;
   border-radius: 12px;
   overflow: hidden;
-  position: relative;
 }
 
 .chat-messages {
@@ -17,26 +16,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  max-height: calc(100vh - 200px);
-  align-items: flex-start;
-}
-
-.chat-messages::-webkit-scrollbar {
-  width: 8px;
-}
-
-.chat-messages::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-}
-
-.chat-messages::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-}
-
-.chat-messages::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  max-height: 600px;
 }
 
 .empty-chat {
@@ -49,27 +29,16 @@
   color: #a0aec0;
   padding: 2rem;
   gap: 1rem;
-  height: 100%;
-  width: 100%;
 }
 
 .ai-icon {
   font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.empty-chat p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  max-width: 80%;
-  margin: 0 auto;
 }
 
 .message {
   display: flex;
   gap: 1rem;
   max-width: 90%;
-  align-self: flex-start;
 }
 
 .user-message {
@@ -94,7 +63,7 @@
 }
 
 .message-content {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
   padding: 1rem;
   border-radius: 12px;
   color: white;
@@ -104,7 +73,7 @@
 }
 
 .user-message .message-content {
-  background: rgba(99, 102, 241, 0.6);
+  background: rgba(99, 102, 241, 0.4);
 }
 
 /* Typing indicator */
@@ -148,10 +117,27 @@
   }
 }
 
-
+/* Override any existing styles to fit into the dashboard */
 .chat-input-container {
   margin-top: 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: #1a1a1a;
+  padding: 1rem;
+}
+
+.chat-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.chat-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .search-button {
@@ -173,4 +159,129 @@
 
 .search-icon {
   font-size: 1.2rem;
+}
+
+/* Adding styles for Markdown elements */
+.message-content h1,
+.message-content h2,
+.message-content h3,
+.message-content h4,
+.message-content h5,
+.message-content h6 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.message-content h1 {
+  font-size: 1.5rem;
+}
+
+.message-content h2 {
+  font-size: 1.3rem;
+}
+
+.message-content h3 {
+  font-size: 1.15rem;
+}
+
+.message-content p {
+  margin-bottom: 0.75rem;
+}
+
+.message-content ul,
+.message-content ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+.message-content li {
+  margin-bottom: 0.25rem;
+}
+
+.message-content strong,
+.message-content b {
+  font-weight: 700;
+  color: #fff;
+}
+
+.message-content em,
+.message-content i {
+  font-style: italic;
+}
+
+.message-content code {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.message-content pre {
+  padding: 1rem;
+  overflow-x: auto;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  margin: 0.5rem 0;
+}
+
+.message-content pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+.message-content blockquote {
+  border-left: 4px solid rgba(255, 255, 255, 0.3);
+  padding-left: 1rem;
+  margin-left: 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.message-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.5rem 0;
+}
+
+.message-content th,
+.message-content td {
+  padding: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: left;
+}
+
+.message-content th {
+  background-color: rgba(255, 255, 255, 0.1);
+  font-weight: 600;
+}
+
+.message-content hr {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  margin: 1rem 0;
+}
+
+.message-content a {
+  color: #63b3ed;
+  text-decoration: underline;
+}
+
+.message-content a:hover {
+  text-decoration: none;
+}
+
+/* Make sure ReactMarkdown doesn't break our layout */
+.message-content > * {
+  max-width: 100%;
+}
+
+.message-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
 }
