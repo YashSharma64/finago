@@ -285,7 +285,7 @@
   text-decoration: none;
 }
 
-/* Make sure ReactMarkdown doesn't break our layout */
+
 .message-content > * {
   max-width: 100%;
 }
