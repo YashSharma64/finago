@@ -123,6 +123,7 @@
   }
 }
 
+
 .chat-input-container {
   position: fixed;
   bottom: 0;
@@ -171,7 +172,6 @@
   font-size: 1.2rem;
 }
 
-/* Adding styles for Markdown elements */
 .message-content h1,
 .message-content h2,
 .message-content h3,
@@ -300,20 +300,21 @@
   .chat-container {
     border-radius: 12px;
     min-height: calc(100vh - 72px);
-    margin: 0 2rem;
+    margin: 0;
+    width: 100%;
   }
 
   .chat-messages {
-    height: calc(100vh - 72px - 60px - 4rem);
+    height: calc(100vh - 72px - 60px);
     padding-bottom: 1rem;
   }
 
   .chat-input-container {
-    position: sticky;
+    position: fixed;
     bottom: 0;
-    left: auto;
-    right: auto;
-    width: 100%;
+    left: 300px; 
+    right: 0;
+    width: calc(100% - 300px);
     padding: 1rem;
   }
 
