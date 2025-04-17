@@ -10,6 +10,7 @@
   flex-direction: column;
   width: 100%;
   position: relative;
+  overflow: hidden;
 }
 
 .dashboard-nav {
@@ -17,13 +18,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: #0b0924;
-  border-bottom: 1px solid rgba(254, 254, 254, 0.1);
+  background: #0d0a32;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
+  height: 72px;
 }
 
 .nav-logo {
@@ -177,6 +179,7 @@
   flex-direction: column;
   position: relative;
   width: 100%;
+  overflow: hidden;
 }
 
 .sidebar {
@@ -263,6 +266,7 @@
   width: 100%;
   order: 1;
   min-height: calc(100vh - 72px - 300px);
+  overflow: hidden;
 }
 
 .nav-menu {
@@ -386,13 +390,14 @@
 
   .sidebar {
     width: 300px;
-    padding: 2rem;
+    padding: 1rem;
     order: 1;
     border-top: none;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     height: calc(100vh - 72px);
-    position: sticky;
+    position: fixed;
     top: 72px;
+    left: 0;
     min-height: auto;
   }
 
@@ -400,6 +405,8 @@
     padding: 0;
     order: 2;
     min-height: calc(100vh - 72px);
+    width: calc(100% - 300px);
+    margin-left: 300px;
   }
 
   .nav-menu {
