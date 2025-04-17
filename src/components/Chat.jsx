@@ -10,10 +10,10 @@ const Chat = ({ userData }) => {
   const [trainingContext, setTrainingContext] = useState('');
   const messagesEndRef = useRef(null);
 
-  // Get API key from environment variable
+
   const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
   
-  // Load training context on component mount
+
   useEffect(() => {
     const loadContext = async () => {
       try {
@@ -27,10 +27,6 @@ const Chat = ({ userData }) => {
     loadContext();
   }, []);
   
-  // Remove auto-scroll effect
-  // useEffect(() => {
-  //   scrollToBottom();
-  // }, [messages]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -40,19 +36,19 @@ const Chat = ({ userData }) => {
     setInput(e.target.value);
   };
 
-  // Only clean up the response structure, but preserve markdown formatting
+  
   const cleanResponse = (text) => {
-    // Remove option-style header text but keep the content
+  
     text = text.replace(/\*\*Option \d+.*?\*\*:\s*/gi, '');
     
-    // Remove internal thought process indicators
+    
     text = text.replace(/\*\*(Which option is best.*?)\*\*/gi, '');
     text = text.replace(/\*\*(Assuming.*?)\*\*/gi, '');
     
-    // If the response contains multiple options or looks like internal deliberation
+    
     if (text.includes("**Option") || text.includes("context")) {
       const sentences = text.split(/(?<=[.!?])\s+/);
-      const lastSentences = sentences.slice(-5).join(' '); // Take the last 5 sentences
+      const lastSentences = sentences.slice(-5).join(' '); 
       
       if (lastSentences.length > 20) {
         text = lastSentences;
@@ -67,16 +63,16 @@ const Chat = ({ userData }) => {
     
     if (!input.trim()) return;
     
-    // Add user message
+
     const userMessage = { role: 'user', content: input };
     setMessages(prev => [...prev, userMessage]);
     
-    // Clear input
+   
     setInput('');
     setIsLoading(true);
     
     try {
-      // Prepare prompt with training context
+
       const promptWithContext = `${trainingContext}
 
 User: ${userData?.name || 'Anonymous'}
@@ -87,7 +83,7 @@ Current question: ${input}
 
 Instructions: Respond as Finago, the AI financial assistant. Follow all guidelines and restrictions in the training context above. Format your response using Markdown for readability.`;
 
-      // Directly use the Gemini API with fetch
+      
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
         method: 'POST',
         headers: {
@@ -119,13 +115,13 @@ Instructions: Respond as Finago, the AI financial assistant. Follow all guidelin
       const data = await response.json();
       console.log('Gemini response:', data);
       
-      // Extract the response from the Gemini API format
+     
       let assistantResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated';
       
-      // Clean up the response structure but preserve markdown
+    
       assistantResponse = cleanResponse(assistantResponse);
       
-      // Add assistant message
+     
       setMessages(prev => [
         ...prev, 
         { 
