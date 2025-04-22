@@ -1,77 +1,589 @@
-import React from 'react';
-import Logo from './Logo';
-import '../styles/LandingPage.css';
 
-const LandingPage = ({ onGetStarted, onLoginClick }) => {
-  return (
-    <div className="landing-page">
-      <nav className="navbar">
-        <div className="small-logo">
-          <svg width="60" height="60" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="none" stroke="#C4A484" strokeWidth="8"/>
-            <text x="50" y="65" textAnchor="middle" fill="#C4A484" fontSize="40">$</text>
-          </svg>
-        </div>
-        <div className="nav-text">Your Money is in Safe Hands</div>
-        <button className="login-button" onClick={onLoginClick}>login/Register</button>
-      </nav>
-      
-      <main className="main-content">
-        <Logo />
-        <h1 className="main-heading" style={{fontSize: '30px'}}>India's Most Trusted AI Financial Advisory</h1>
-        <button className="get-started-button" onClick={onGetStarted}>Get Started</button>
-        <div className="bottom-text">
-          <span role="img" aria-label="robot" className="robot-emoji">🤖</span>
-          <p>Turn Your Savings into Rewards – AI-Powered Finance!</p>
-        </div>
-      </main>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 
-      <section className="about-section">
-        <div className="about-container">
-          <h2 className="about-title">About FINAGO</h2>
-          
-          <div className="about-content">
-            <p>
-              Finago is India’s first AI-powered financial advisor built to simplify money management for every Indian. Our mission is to empower individuals with smart, data-driven financial decisions through intuitive technology, without needing complex knowledge or manual effort. Whether it’s tracking expenses, optimizing savings, or planning investments—Finago is your all-in-one financial guide.
-            </p>
-            
-            <p>
-              We combine the power of artificial intelligence and automation to help users understand their spending habits, receive personalized financial insights, and stay in control of their financial journey. By securely integrating with users’ bank accounts and payment data, Finago delivers timely suggestions, savings tips, and actionable advice—all in a user-friendly interface designed for Indian lifestyles.
-            </p>
-            
-            <p>
-              At Finago, we believe managing money shouldn’t be stressful. That’s why we’ve created a seamless experience where users can monitor their finances, set personal goals, and unlock smarter ways to save and grow. With a deep understanding of the Indian mindset, Finago is not just another finance app—it’s your trusted financial companion for everyday life.
-            </p>
-            
-            <p className="mission">
-              Our mission is simple:<br />
-              Turn your savings into rewards. Make every rupee count.<br />
-              Because at Finago—your money, is our responsibility.
-            </p>
+.landing-page {
+  min-height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
 
-            <div className="founder-card">
-              <div className="founder-image">
-                <img src="/Yash.png" alt="Yash Sharma" />
-              </div>
-              <div className="founder-info">
-                <h3>Founder :- Yash Sharma</h3>
-                <p>AI Software Engineer</p>
-                <p className="contact">Contact us - yashsharma.aiml@gmail.com</p>
-                <div className="social-links">
-                  <a href="https://www.linkedin.com/in/yash-sharma-6960ab326/" target="_blank" rel="noopener noreferrer">
-                    <img src="/Linkedin.png" alt="LinkedIn" className="social-icon" />
-                  </a>
-                  <a href="https://wa.me/919711132445" target="_blank" rel="noopener noreferrer">
-                    <img src="/whatsapp.png" alt="Instagram" className="social-icon" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-};
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 4rem;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
 
-export default LandingPage; 
+.small-logo {
+  display: flex;
+  align-items: center;
+}
+
+.nav-text {
+  color: #666;
+  font-size: 1.2rem;
+  font-weight: 300;
+  text-align: center;
+  margin-left: 7rem;
+}
+
+.login-button {
+  background-color: #6366F1;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.login-button:hover {
+  background-color: #2c23e6;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(99, 102, 241, 0.2);
+  color: yellow;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 2rem 4rem;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 3rem;
+  margin-top: 150px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  transform: scale(1.2);
+}
+
+.logo svg {
+  width: 120px;
+  height: 120px;
+  margin-top: 20px;
+}
+
+.logo-text {
+  font-size: 7.4rem;
+  color: #2d4778;
+  font-weight: 200;
+  letter-spacing: -0.5px;
+  margin-top: 20px;
+}
+
+.main-heading {
+  color: #666;
+  font-size: 30px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 350;
+  margin: 1rem 0;
+  max-width: 800px;
+  margin-top: 60px;
+}
+
+.get-started-button {
+  background-color: #6366F1;
+  color: white;
+  border: none;
+  padding: 1rem 4rem;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  margin-top: 0.1rem;
+  margin-bottom: 5rem;
+}
+
+.get-started-button:hover {
+  background-color: #2c23e6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(99, 102, 241, 0.2);
+  color: rgb(213, 255, 124);
+}
+
+.bottom-text {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #666;
+  margin-top: -2rem;
+  font-size: 1.2rem;
+}
+
+.robot-emoji {
+  font-size: 2rem;
+}
+
+@media (min-width: 1440px) {
+  .main-content {
+    max-width: 1400px;
+  }
+  .logo {
+    transform: scale(1.4);
+  }
+  .main-heading {
+    font-size: 3rem;
+  }
+}
+
+.about-section {
+  background-color: #f5f5f5;
+  padding: 4rem 0 0;
+  width: 100%;
+}
+
+.about-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.about-title {
+  color: #2d4778;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  font-weight: 600;
+}
+
+.about-content {
+  background: white;
+  padding: 4rem 4rem 0;
+  width: 100%;
+  margin: 0;
+}
+
+.about-content p {
+  color: #333;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+
+.mission {
+  color: #2d4778 !important;
+  font-weight: 500;
+  text-align: center !important;
+  font-size: 1.2rem !important;
+  margin: 3rem 0;
+  line-height: 2 !important;
+}
+
+.founder-card {
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.founder-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #2d4778;
+  flex-shrink: 0;
+}
+
+.founder-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.founder-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.founder-info h3 {
+  color: #2d4778;
+  font-size: 1.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.founder-info p {
+  color: #666;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.contact {
+  color: #2d4778 !important;
+  font-weight: 500;
+  margin-top: 0.5rem;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: rgba(45, 71, 120, 0.1);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.contact:hover {
+  background: rgba(45, 71, 120, 0.15);
+  transform: translateY(-1px);
+}
+
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.social-icon {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease;
+  opacity: 0.8;
+}
+
+.social-icon:hover {
+  transform: translateY(-2px);
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 2rem 0;
+  }
+  .about-container {
+    padding: 0 1rem;
+  }
+  .about-content {
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .about-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  .about-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .founder-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .founder-image {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .founder-info {
+    text-align: center;
+  }
+
+  .social-links {
+    justify-content: center;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-section {
+    padding: 1.5rem 0;
+  }
+
+  .about-container {
+    padding: 0;
+  }
+
+  .about-content {
+    padding: 1.2rem;
+    margin: 0;
+  }
+
+  .about-title {
+    font-size: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .founder-card {
+    padding: 1.2rem;
+  }
+
+  .founder-info h3 {
+    font-size: 1.2rem;
+  }
+
+  .founder-info p {
+    font-size: 0.9rem;
+  }
+
+  .contact {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .founder-card {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .founder-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .founder-info {
+    gap: 0.2rem;
+  }
+
+  .founder-info h3 {
+    font-size: 1.1rem;
+  }
+
+  .founder-info p {
+    font-size: 0.85rem;
+  }
+
+  .contact {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  .social-links {
+    gap: 1.2rem;
+    margin-top: 0.6rem;
+  }
+
+  .social-icon {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.5rem 1rem;
+    position: fixed;
+  }
+
+  .nav-text {
+    margin-left: 1rem;
+    font-size: 1rem;
+  }
+
+  .main-content {
+    margin-top: 80px;
+    padding: 2rem 1rem;
+    gap: 2rem;
+  }
+
+  .logo {
+    transform: scale(0.9);
+  }
+
+  .logo svg {
+    width: 80px;
+    height: 80px;
+  }
+
+  .logo-text {
+    font-size: 4rem;
+  }
+
+  .main-heading {
+    font-size: 0.9rem;
+    margin-top: 30px;
+  }
+
+  .get-started-button {
+    padding: 0.8rem 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .bottom-text {
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 1rem;
+    margin-top: -1rem;
+  }
+
+  .robot-emoji {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.5rem;
+  }
+
+  .nav-text {
+    display: none;
+  }
+
+  .login-button {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .main-content {
+    margin-top: 60px;
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .logo {
+    transform: scale(0.7);
+  }
+
+  .logo svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .logo-text {
+    font-size: 4rem;
+    font-weight: 300;
+  }
+
+  .main-heading {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    padding: 0 0.5rem;
+  }
+
+  .get-started-button {
+    padding: 0.6rem 3rem;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .bottom-text {
+    font-size: 0.9rem;
+  }
+
+  .robot-emoji {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .logo {
+    transform: scale(0.6);
+  }
+
+  .logo-text {
+    font-size: 2.5rem;
+  }
+
+  .main-heading {
+    font-size: 0.75rem;
+  }
+
+  .get-started-button {
+    padding: 0.6rem 1.8rem;
+    font-size: 0.85rem;
+  }
+
+  .bottom-text {
+    font-size: 0.8rem;
+  }
+}
+
+.footer {
+  background-color: white;
+  padding: 2rem 4rem;
+  width: 100%;
+  margin: 0;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 4rem;
+}
+
+.footer-brand {
+  flex: 1;
+}
+
+.footer-address {
+  flex: 2;
+  text-align: right;
+}
+
+.footer-brand h3,
+.footer-address h3 {
+  color: #333;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: normal;
+}
+
+.footer-brand p,
+.footer-address p {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .about-content {
+    padding: 2rem 2rem 0;
+  }
+
+  .footer {
+    padding: 2rem;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .footer-address {
+    text-align: center;
+  }
+}
