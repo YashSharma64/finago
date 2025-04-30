@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { buildTrainingContext } from '../utils/trainingContext';
+import TypingText from './TypingText';
 import '../styles/Chat.css';
 
 const Chat = ({ userData }) => {
@@ -38,22 +39,21 @@ const Chat = ({ userData }) => {
 
   
   const cleanResponse = (text) => {
-  
-    text = text.replace(/\*\*Option \d+.*?\*\*:\s*/gi, '');
+
+    text = text.replace(/#{1,6}\s/g, '');
+    
+
+    text = text.replace(/\*\*/g, '');
     
     
-    text = text.replace(/\*\*(Which option is best.*?)\*\*/gi, '');
-    text = text.replace(/\*\*(Assuming.*?)\*\*/gi, '');
+    text = text.replace(/\s+/g, ' ');
     
+    text = text.replace(/\s*\*\s*/g, '\n• ');
     
-    if (text.includes("**Option") || text.includes("context")) {
-      const sentences = text.split(/(?<=[.!?])\s+/);
-      const lastSentences = sentences.slice(-5).join(' '); 
-      
-      if (lastSentences.length > 20) {
-        text = lastSentences;
-      }
-    }
+
+    text = text.replace(/\.\s+/g, '.\n\n');
+
+    text = text.replace(/\n\s*\n\s*\n/g, '\n\n');
     
     return text.trim();
   };
@@ -149,7 +149,7 @@ Instructions: Respond as Finago, the AI financial assistant. Follow all guidelin
         {messages.length === 0 ? (
           <div className="empty-chat">
             <span className="ai-icon">🤖</span>
-            <p>Hello {userData?.name || 'there'}! Ask me anything about your finances, investments, or budgeting!</p>
+            <p><TypingText text={`Hello ${userData?.name || 'there'}! Ask me anything about your finances, investments, or budgeting!`} delay={10} /></p>
           </div>
         ) : (
           messages.map((message, index) => (
@@ -162,7 +162,7 @@ Instructions: Respond as Finago, the AI financial assistant. Follow all guidelin
               </span>
               <div className="message-content">
                 {message.role === 'assistant' ? (
-                  <ReactMarkdown>{message.content}</ReactMarkdown>
+                  <TypingText text={cleanResponse(message.content)} delay={5} />
                 ) : (
                   message.content
                 )}
