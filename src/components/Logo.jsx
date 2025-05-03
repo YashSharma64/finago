@@ -1,5 +1,5 @@
 import React from 'react';
-import AnimatedText from './AnimatedText';
+import TypingText from './TypingText';
 
 const Logo = () => {
   return (
@@ -9,7 +9,7 @@ const Logo = () => {
         <text x="60" y="78" textAnchor="middle" fill="#2d4778" fontSize="48">$</text>
       </svg>
       <span className="logo-text">
-        <AnimatedText 
+        <TypingText 
           text="finago.ai" 
           delay={150} 
           className="animated-logo-text"
