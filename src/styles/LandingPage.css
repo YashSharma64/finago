@@ -71,7 +71,7 @@
   text-align: center;
   max-width: 1200px;
   margin: 0 auto;
-  gap: 8rem;
+  gap: 3rem;
   margin-top: 150px;
   width: 100%;
 }
@@ -80,7 +80,7 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  margin-bottom: 5rem;
+  margin-bottom: 1rem;
   transform: scale(1.2);
   width: 100%;
   justify-content: center;
@@ -133,7 +133,7 @@
   font-weight: 350;
   margin: 1rem 0;
   max-width: 800px;
-  margin-top: 0;
+  margin-top: 60px;
   width: 100%;
   padding: 0 1rem;
 }
@@ -148,8 +148,8 @@
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 500;
-  margin-top: 1rem;
-  margin-bottom: 5rem;
+  margin-top: 0.1rem;
+  margin-bottom: 2rem;
   white-space: nowrap;
 }
 
@@ -165,7 +165,7 @@
   align-items: center;
   gap: 1rem;
   color: #666;
-  margin-top: 5rem;
+  margin-top: 1rem;
   font-size: 1.2rem;
   width: 100%;
   padding: 0 1rem;
@@ -182,6 +182,7 @@
   }
   .logo {
     transform: scale(1.4);
+    
   }
   .main-heading {
     font-size: 3rem;
@@ -362,6 +363,7 @@
     transform: scale(0.8);
     margin-bottom: 0.5rem;
     flex-direction: row;
+    gap: 3rem;
   }
 
   .logo svg {
@@ -379,12 +381,17 @@
   }
 
   .main-heading {
-    margin: 0.8rem 0;
+    margin: 0.5rem 0;
+    margin-top: 0;
   }
 
   .get-started-button {
-    margin-top: 0.8rem;
-    margin-bottom: 4rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .bottom-text {
+    margin-top: 0.5rem;
   }
 
   .robot-emoji {
@@ -512,12 +519,17 @@
   }
 
   .main-heading {
-    margin: 0.5rem 0;
+    margin: 0.3rem 0;
+    margin-top: 0;
   }
 
   .get-started-button {
-    margin-top: 0.5rem;
-    margin-bottom: 3rem;
+    margin-top: 0.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .bottom-text {
+    margin-top: 0.3rem;
   }
 
   .robot-emoji {
@@ -627,25 +639,27 @@
   }
 
   .main-content {
-    gap: 6rem;
+    gap: 1.5rem;
     padding: 6rem 1.5rem 3rem;
   }
 
   .logo {
-    margin-bottom: 4rem;
+    margin-bottom: 1.5rem;
+    gap: 0.4rem;
   }
 
   .main-heading {
-    margin: 0.8rem 0;
+    margin: 1.5rem 0;
+    margin-top: 0;
   }
 
   .get-started-button {
-    margin-top: 0.8rem;
-    margin-bottom: 4rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
   }
 
   .bottom-text {
-    margin-top: 4rem;
+    margin-top: 1.5rem;
   }
 
   .robot-emoji {
@@ -693,25 +707,27 @@
   }
 
   .main-content {
-    gap: 5rem;
+    gap: 1rem;
     padding: 5rem 1rem 2rem;
   }
 
   .logo {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
+    gap: 0.4rem;
   }
 
   .main-heading {
-    margin: 0.5rem 0;
+    margin: 1rem 0;
+    margin-top: 0;
   }
 
   .get-started-button {
-    margin-top: 0.5rem;
-    margin-bottom: 3rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 
   .bottom-text {
-    margin-top: 3rem;
+    margin-top: 1rem;
   }
 
   .robot-emoji {
@@ -770,7 +786,7 @@
     font-size: 0.8rem;
   }
 
-/*   for smaller screen by yash */
+  /* Footer Responsive Styles for Extra Small Screens */
   .footer {
     padding: 1.2rem 0.6rem;
   }
