@@ -20,7 +20,8 @@ const TypingText = ({ text, delay = 50, className = '', onComplete }) => {
 
   return (
     <span className={className}>
-      <ReactMarkdown>{displayText}</ReactMarkdown>
+      {displayText}
+      <span className="blinking-cursor">|</span>
     </span>
   );
 };
