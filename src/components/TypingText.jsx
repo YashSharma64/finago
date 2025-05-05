@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 
-const TypingText = ({ text, delay = 50, className = '', onComplete }) => {
+const TypingText = ({ text, delay = 50, className = '', onComplete, showCursor = true }) => {
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
 
   useEffect(() => {
     if (currentIndex < text.length) {
@@ -13,15 +14,18 @@ const TypingText = ({ text, delay = 50, className = '', onComplete }) => {
       }, delay);
 
       return () => clearTimeout(timeout);
-    } else if (currentIndex === text.length && onComplete) {
-      onComplete();
+    } else {
+      setIsTyping(false);
+      if (onComplete) {
+        onComplete();
+      }
     }
   }, [currentIndex, text, delay, onComplete]);
 
   return (
     <span className={className}>
       {displayText}
-      <span className="blinking-cursor">|</span>
+      {showCursor && isTyping && <span className="blinking-cursor">|</span>}
     </span>
   );
 };
