@@ -91,6 +91,8 @@
   width: 120px;
   height: 120px;
   margin-top: 0;
+  display: flex;
+  align-items: center;
 }
 
 .logo-text {
@@ -103,6 +105,8 @@
   line-height: 1;
   text-align: center;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 
 .animated-logo-text {
@@ -361,44 +365,43 @@
 
   .logo {
     transform: scale(0.8);
-    margin-bottom: 0.5rem;
-    flex-direction: row;
-    gap: 3rem;
+    margin-bottom: 15rem;
+    gap: 0.4rem;
   }
 
   .logo svg {
     width: 80px;
     height: 80px;
-    margin-top: 0;
   }
 
   .logo-text {
     font-size: 4rem;
-    margin-top: 0;
-    display: inline;
-    width: auto;
-    white-space: nowrap;
+    margin-bottom: 15rem;
+    display: flex;
+    align-items: center;
   }
 
   .main-heading {
-    margin: 0.5rem 0;
-    margin-top: 0;
+    margin: 1rem 0;
+    font-size: 1.5rem;
   }
 
   .get-started-button {
-    margin-top: 0.5rem;
-    margin-bottom: 1.5rem;
+    padding: 1rem 2rem;
+    font-size: 1.4rem;
+    margin: 2rem 0;
   }
 
   .bottom-text {
-    margin-top: 0.5rem;
+    margin-top: auto;
+    padding-bottom: 6rem;
   }
 
   .robot-emoji {
     font-size: 1.5rem;
   }
 
-  /* Footer Responsive Styles */
+
   .footer {
     padding: 2rem 1rem;
   }
@@ -460,6 +463,11 @@
 
   .legal-links {
     justify-content: flex-start;
+  }
+
+  .login-button {
+    padding: 1.2rem 3rem;
+    font-size: 1.3rem;
   }
 }
 
@@ -622,73 +630,6 @@
     display: inline;
     width: auto;
     white-space: nowrap;
-  }
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    padding: 0.8rem 1rem;
-  }
-
-  .nav-text {
-    margin-left: 0.5rem;
-    font-size: 0.9rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .main-content {
-    gap: 1.5rem;
-    padding: 6rem 1.5rem 3rem;
-  }
-
-  .logo {
-    margin-bottom: 1.5rem;
-    gap: 0.4rem;
-  }
-
-  .main-heading {
-    margin: 1.5rem 0;
-    margin-top: 0;
-  }
-
-  .get-started-button {
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .bottom-text {
-    margin-top: 1.5rem;
-  }
-
-  .robot-emoji {
-    font-size: 1.5rem;
-  }
-
-  /* Footer Responsive Styles */
-  .footer {
-    padding: 2rem 1rem;
-  }
-
-  .footer-content {
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .footer-links {
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .footer-bottom {
-    flex-direction: column;
-    text-align: center;
-    gap: 1rem;
-  }
-
-  .legal-links {
-    justify-content: center;
   }
 }
 
