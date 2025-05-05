@@ -149,7 +149,7 @@ Instructions: Respond as Finago, the AI financial assistant. Follow all guidelin
         {messages.length === 0 ? (
           <div className="empty-chat">
             <span className="ai-icon">🤖</span>
-            <p><TypingText text={`Hello ${userData?.name || 'there'}! Ask me anything about your finances, investments, or budgeting!`} delay={10} /></p>
+            <p><TypingText text={`Hello ${userData?.name || 'there'}! Ask me anything about your finances, investments, or budgeting!`} delay={10} showCursor={true} /></p>
           </div>
         ) : (
           messages.map((message, index) => (
@@ -162,7 +162,7 @@ Instructions: Respond as Finago, the AI financial assistant. Follow all guidelin
               </span>
               <div className="message-content">
                 {message.role === 'assistant' ? (
-                  <TypingText text={cleanResponse(message.content)} delay={5} />
+                  <TypingText text={cleanResponse(message.content)} delay={5} showCursor={true} />
                 ) : (
                   message.content
                 )}
