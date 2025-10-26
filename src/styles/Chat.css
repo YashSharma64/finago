@@ -3,7 +3,7 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
-  background: #09090c;
+  background: #000000;
   border-radius: 0;
   overflow: hidden;
   position: relative;
@@ -30,7 +30,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: #a0aec0;
+  color: #9fb0c5;
   padding: 2rem;
   gap: 1rem;
   height: 100%;
@@ -52,8 +52,8 @@
 }
 
 .assistant-message {
-  background: #09090b;
-  border: 1px solid rgba(32, 28, 28, 0.1);
+  background: #000000;
+  border: none;
   padding: 1rem;
   border-radius: 12px;
   margin-bottom: 1rem;
@@ -71,13 +71,14 @@
   justify-content: center;
   font-size: 1rem;
   flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(10, 9, 9, 0.1);
 }
 
 .message-content {
   flex: 1;
   color: #eaf3ff;
   line-height: 1.6;
+  background: #0a0a0a;
 }
 
 .message-content p {
@@ -193,16 +194,15 @@
   left: 0;
   right: 0;
   margin-top: 0;
-
-  background: #050404;
+  background: #000000;
   padding: 0.8rem;
   z-index: 10;
 }
 
 .chat-input {
   flex: 1;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #000000;
+  border: 1px solid #000000;
   padding: 1.2rem;
   border-radius: 8px;
   color: white;
@@ -307,7 +307,7 @@
   border-left: 4px solid rgba(255, 255, 255, 0.3);
   padding-left: 1rem;
   margin-left: 0;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(151, 100, 100, 0.8);
 }
 
 .message-content table {
