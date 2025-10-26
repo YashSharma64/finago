@@ -9,6 +9,8 @@ const Chat = ({ userData }) => {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [trainingContext, setTrainingContext] = useState('');
+  const [rateLimitMessage, setRateLimitMessage] = useState('');
+  const [lastRequestTime, setLastRequestTime] = useState(0);
   const messagesEndRef = useRef(null);
 
 
@@ -58,32 +60,20 @@ const Chat = ({ userData }) => {
     return text.trim();
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (!input.trim()) return;
-    
+  {/* I have added this rate limiting state to the Chat component */}
+  const [requestQueue, setRequestQueue] = useState([]);
+  const [isProcessingQueue, setIsProcessingQueue] = useState(false);
+  const [requestCount, setRequestCount] = useState(0);
+  const [lastMinuteReset, setLastMinuteReset] = useState(Date.now());
 
-    const userMessage = { role: 'user', content: input };
-    setMessages(prev => [...prev, userMessage]);
-    
-   
-    setInput('');
-    setIsLoading(true);
-    
+  {/* I have added this rate limiting function to the Chat component */}
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+  const makeApiRequest = async (promptWithContext, retryCount = 0) => {
+    const maxRetries = 3;
+    const baseDelay = 2000; // 2 seconds base delay
+
     try {
-
-      const promptWithContext = `${trainingContext}
-
-User: ${userData?.name || 'Anonymous'}
-Date: ${new Date().toLocaleDateString()}
-Previous messages: ${messages.map(m => `${m.role === 'user' ? 'User' : 'Finago'}: ${m.content}`).join('\n')}
-
-Current question: ${input}
-
-Instructions: Respond as Finago, the AI financial assistant. Follow all guidelines and restrictions in the training context above. Format your response using Markdown for readability.`;
-
-      
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
         method: 'POST',
         headers: {
@@ -109,19 +99,95 @@ Instructions: Respond as Finago, the AI financial assistant. Follow all guidelin
       if (!response.ok) {
         const errorData = await response.json();
         console.error('Gemini API error:', errorData);
+        
+        // Check if it's a quota error
+        if (errorData.error?.message?.includes('Quota exceeded') || errorData.error?.message?.includes('quota')) {
+          if (retryCount < maxRetries) {
+            const delayTime = baseDelay * Math.pow(2, retryCount); // if the quota is exceeded, we will retry the request after a delay
+            console.log(`Quota exceeded, retrying in ${delayTime}ms... (attempt ${retryCount + 1}/${maxRetries})`);
+            setRateLimitMessage(`Rate limit hit, retrying in ${Math.ceil(delayTime/1000)} seconds...`);
+            await delay(delayTime);
+            setRateLimitMessage('');
+            return makeApiRequest(promptWithContext, retryCount + 1);
+          } else {
+            setRateLimitMessage('Rate limit exceeded. Please wait a moment before trying again.');
+            throw new Error('Rate limit exceeded. Please wait a moment before trying again.');
+          }
+        }
+        
         throw new Error(errorData.error?.message || 'Error calling Gemini API');
       }
       
       const data = await response.json();
       console.log('Gemini response:', data);
-      
-     
-      let assistantResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated';
-      
+      return data;
+    } catch (error) {
+      if (retryCount < maxRetries && error.message.includes('Rate limit')) {
+        const delayTime = baseDelay * Math.pow(2, retryCount);
+        console.log(`Rate limit hit, retrying in ${delayTime}ms... (attempt ${retryCount + 1}/${maxRetries})`);
+        setRateLimitMessage(`Rate limit hit, retrying in ${Math.ceil(delayTime/1000)} seconds...`);
+        await delay(delayTime);
+        setRateLimitMessage('');
+        return makeApiRequest(promptWithContext, retryCount + 1);
+      }
+      throw error;
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     
+    if (!input.trim()) return;
+    
+    // there will be a minimum interval of 2 seconds between requests
+    const now = Date.now();
+    const timeSinceLastRequest = now - lastRequestTime;
+    const minInterval = 2000; // 2 seconds
+    
+    // Reset request count every minute
+    if (now - lastMinuteReset > 60000) {
+      setRequestCount(0);
+      setLastMinuteReset(now);
+    }
+    
+    // we are checking if the request count is greater than 10
+    if (requestCount >= 10) {
+      setRateLimitMessage('Rate limit reached. Please wait a moment before sending another message.');
+      setTimeout(() => setRateLimitMessage(''), 5000);
+      return;
+    }
+    
+    if (timeSinceLastRequest < minInterval) {
+      const waitTime = Math.ceil((minInterval - timeSinceLastRequest) / 1000);
+      setRateLimitMessage(`Please wait ${waitTime} seconds before sending another message.`);
+      setTimeout(() => setRateLimitMessage(''), waitTime * 1000);
+      return;
+    }
+    
+    const userMessage = { role: 'user', content: input };
+    setMessages(prev => [...prev, userMessage]);
+    
+    setInput('');
+    setIsLoading(true);
+    setLastRequestTime(now);
+    setRequestCount(prev => prev + 1);
+    
+    try {
+      const promptWithContext = `${trainingContext}
+
+User: ${userData?.name || 'Anonymous'}
+Date: ${new Date().toLocaleDateString()}
+Previous messages: ${messages.map(m => `${m.role === 'user' ? 'User' : 'Finago'}: ${m.content}`).join('\n')}
+
+Current question: ${input}
+
+Instructions: Respond as Finago, the AI financial assistant. Follow all guidelines and restrictions in the training context above. Format your response using Markdown for readability.`;
+
+      const data = await makeApiRequest(promptWithContext);
+      
+      let assistantResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated';
       assistantResponse = cleanResponse(assistantResponse);
       
-     
       setMessages(prev => [
         ...prev, 
         { 
@@ -177,6 +243,14 @@ Instructions: Respond as Finago, the AI financial assistant. Follow all guidelin
               <span></span>
               <span></span>
               <span></span>
+            </div>
+          </div>
+        )}
+        {rateLimitMessage && (
+          <div className="message assistant-message rate-limit-message">
+            <span className="message-avatar">⚠️</span>
+            <div className="message-content">
+              {rateLimitMessage}
             </div>
           </div>
         )}

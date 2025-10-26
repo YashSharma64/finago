@@ -149,6 +149,16 @@
   }
 }
 
+.rate-limit-message {
+  background: rgba(255, 193, 7, 0.1) !important;
+  border: 1px solid rgba(255, 193, 7, 0.3) !important;
+  color: #ffc107 !important;
+}
+
+.rate-limit-message .message-content {
+  color: #ffc107 !important;
+}
+
 
 .chat-input-container {
   position: fixed;
