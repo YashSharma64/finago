@@ -65,6 +65,7 @@ const Chat = ({ userData }) => {
   const [isProcessingQueue, setIsProcessingQueue] = useState(false);
   const [requestCount, setRequestCount] = useState(0);
   const [lastMinuteReset, setLastMinuteReset] = useState(Date.now());
+  const [responseCache, setResponseCache] = useState(new Map());
 
   {/* I have added this rate limiting function to the Chat component */}
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -139,10 +140,10 @@ const Chat = ({ userData }) => {
     
     if (!input.trim()) return;
     
-    // there will be a minimum interval of 2 seconds between requests
+    // Aggressive rate limiting - minimum 5 seconds between requests
     const now = Date.now();
     const timeSinceLastRequest = now - lastRequestTime;
-    const minInterval = 2000; // 2 seconds
+    const minInterval = 5000; // 5 seconds (increased from 2 seconds)
     
     // Reset request count every minute
     if (now - lastMinuteReset > 60000) {
@@ -150,10 +151,10 @@ const Chat = ({ userData }) => {
       setLastMinuteReset(now);
     }
     
-    // we are checking if the request count is greater than 10
-    if (requestCount >= 10) {
+    // Very conservative rate limiting - max 5 requests per minute (reduced from 10)
+    if (requestCount >= 5) {
       setRateLimitMessage('Rate limit reached. Please wait a moment before sending another message.');
-      setTimeout(() => setRateLimitMessage(''), 5000);
+      setTimeout(() => setRateLimitMessage(''), 10000);
       return;
     }
     
@@ -173,6 +174,21 @@ const Chat = ({ userData }) => {
     setRequestCount(prev => prev + 1);
     
     try {
+      // Check cache first to avoid API calls
+      const cacheKey = input.toLowerCase().trim();
+      if (responseCache.has(cacheKey)) {
+        const cachedResponse = responseCache.get(cacheKey);
+        setMessages(prev => [
+          ...prev, 
+          { 
+            role: 'assistant', 
+            content: cachedResponse
+          }
+        ]);
+        setIsLoading(false);
+        return;
+      }
+
       const promptWithContext = `${trainingContext}
 
 User: ${userData?.name || 'Anonymous'}
@@ -181,12 +197,29 @@ Previous messages: ${messages.map(m => `${m.role === 'user' ? 'User' : 'Finago'}
 
 Current question: ${input}
 
-Instructions: Respond as Finago, the AI financial assistant. Follow all guidelines and restrictions in the training context above. Format your response using Markdown for readability.`;
+CRITICAL INSTRUCTIONS:
+- You are Finago, a professional AI financial assistant
+- Always respond as a knowledgeable financial advisor
+- Provide practical, actionable financial advice
+- Use professional financial terminology appropriately
+- Structure responses with clear headings and bullet points
+- Include relevant disclaimers when discussing investments or complex financial topics
+- Be educational and informative
+- Format your response using Markdown for maximum readability
+- Always maintain a professional yet friendly tone
+- Focus on helping the user make better financial decisions`;
 
       const data = await makeApiRequest(promptWithContext);
       
       let assistantResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated';
       assistantResponse = cleanResponse(assistantResponse);
+      
+      // Cache the response to avoid future API calls
+      setResponseCache(prev => {
+        const newCache = new Map(prev);
+        newCache.set(cacheKey, assistantResponse);
+        return newCache;
+      });
       
       setMessages(prev => [
         ...prev, 
@@ -215,7 +248,7 @@ Instructions: Respond as Finago, the AI financial assistant. Follow all guidelin
         {messages.length === 0 ? (
           <div className="empty-chat">
             <span className="ai-icon">🤖</span>
-            <p><TypingText text={`Hello ${userData?.name || 'there'}! Ask me anything about your finances, investments, or budgeting!`} delay={10} showCursor={true} /></p>
+            <p><TypingText text={`Hello ${userData?.name || 'there'}! I'm Finago, your AI financial assistant. I can help you with budgeting, investing, retirement planning, debt management, and more. What financial question can I help you with today?`} delay={10} showCursor={true} /></p>
           </div>
         ) : (
           messages.map((message, index) => (
@@ -254,6 +287,11 @@ Instructions: Respond as Finago, the AI financial assistant. Follow all guidelin
             </div>
           </div>
         )}
+        <div className="rate-limit-status">
+          <span className="rate-limit-indicator">
+            Requests: {requestCount}/5 per minute
+          </span>
+        </div>
         <div ref={messagesEndRef} />
       </div>
       
@@ -263,7 +301,7 @@ Instructions: Respond as Finago, the AI financial assistant. Follow all guidelin
             type="text"
             value={input}
             onChange={handleInputChange}
-            placeholder="Ask about finances, investments, or budgeting"
+            placeholder="Ask Finago about budgeting, investing, retirement planning, or any financial topic..."
             className="chat-input"
             disabled={isLoading}
           />
