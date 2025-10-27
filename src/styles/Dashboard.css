@@ -295,16 +295,13 @@
   
 }
 
-<<<<<<< HEAD
-=======
+
 .nav-menu{
   position: fixed;
   width: 100%;
   z-index: 1000;
-  background-color: #09090b;
   
 }
->>>>>>> fe321a84b405170cfcc1366e3667d1228387485f
 
 
 .nav-item {
