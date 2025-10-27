@@ -1,12 +1,56 @@
-# React + Vite
+# Finago - India's AI Financial Advisory $
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Finago is an AI-powered financial assistant platform designed to simplify personal money management and improve financial decision-making for Indian users.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tech Stack
 
-## Expanding the ESLint configuration
+- React.js  
+- CSS  
+- Google Gemini API  
+- Vercel  
+- Figma  
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 💡 Description
+
+Finago leverages AI to provide personalized financial insights and help users make smarter decisions with their money. The platform integrates the Gemini API to deliver real-time, context-aware financial responses and ensures a smooth, responsive user experience.
+
+---
+
+## 🧩 Features
+
+- AI-powered financial suggestions  
+- Expense tracking and analytics  
+- Gemini API integration  
+- Responsive and modern UI/UX  
+- Seamless backend communication  
+
+---
+
+## 🔧 Current Progress
+
+Development is ongoing. Upcoming enhancements include:  
+- JWT and OAuth authentication  
+- Registration form update  
+- Advanced expense tracker module  
+
+---
+
+## 🏗️ Deployment
+
+Finago is hosted on **Vercel** for fast and reliable performance. The interface design is crafted using **Figma** for a clean and user-friendly experience.
+
+---
+
+## 👨‍💻 Developer
+
+Developed by [Your Name] — building innovative AI-driven financial solutions for the future.
+
+---
+
+## 📅 Project Status
+
+Project is under active development. Contributions and feedback are welcome!
