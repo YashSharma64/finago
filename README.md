@@ -47,7 +47,7 @@ Finago is hosted on **Vercel** for fast and reliable performance. The interface 
 
 ## 👨‍💻 Developer
 
-Developed by [Your Name] — building innovative AI-driven financial solutions for the future.
+Developed by Yash Sharma — building innovative AI-driven financial solutions for the future.
 
 ---
 
