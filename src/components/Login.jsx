@@ -33,7 +33,7 @@ const Login = ({ onClose, onContinue }) => {
           </div>
           
           <h2 className="text-white text-3xl font-black mb-2 tracking-tighter">Join FINAGO</h2>
-          <p className="text-white/40 text-sm font-light mb-10 italic">Start your AI-powered wealth journey today.</p>
+          <p className="text-white/40 text-sm font-light mb-10">Start your AI-powered wealth journey today.</p>
           
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2 text-left">
@@ -44,7 +44,7 @@ const Login = ({ onClose, onContinue }) => {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Yash Sharma"
-                className="w-full p-5 bg-white/[0.03] border border-white/5 rounded-2xl text-white outline-none focus:border-indigo-500/50 transition-all placeholder:text-white/10 font-bold"
+                className="w-full p-5 bg-white/[0.03] border border-white/5 rounded-2xl text-white outline-none focus:border-indigo-500/50 transition-all placeholder:text-white/10"
                 required
               />
             </div>
@@ -57,14 +57,14 @@ const Login = ({ onClose, onContinue }) => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="yash@finago.ai"
-                className="w-full p-5 bg-white/[0.03] border border-white/5 rounded-2xl text-white outline-none focus:border-indigo-500/50 transition-all placeholder:text-white/10 font-bold"
+                className="w-full p-5 bg-white/[0.03] border border-white/5 rounded-2xl text-white outline-none focus:border-indigo-500/50 transition-all placeholder:text-white/10"
                 required
               />
             </div>
             
             <button 
               type="submit" 
-              className="w-full bg-indigo-600 text-white py-5 rounded-2xl text-base font-black uppercase tracking-widest transition-all hover:bg-indigo-500 hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-indigo-600/20 mt-4"
+              className="w-full bg-indigo-800 text-white py-5 rounded-2xl text-base font-black uppercase tracking-widest transition-all hover:bg-indigo-500 shadow-xl shadow-indigo-600/30 mt-4 cursor-pointer"
             >
               Secure Access
             </button>

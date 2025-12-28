@@ -3,20 +3,20 @@ import Logo from './Logo';
 
 const LandingPage = ({ onGetStarted, onLoginClick }) => {
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col w-full overflow-x-hidden font-inter selection:bg-indigo-100 selection:text-indigo-900">
+    <div className="min-h-screen bg-slate-50 flex flex-col w-full overflow-x-hidden font-poppins selection:bg-indigo-100 selection:text-indigo-900">
       {/* added Glassmorphism */}
-      <nav className="glass-light flex justify-between items-center px-6 py-4 md:px-20 fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] md:w-[85%] rounded-3xl shadow-md border border-white/40 cursor-pointer">
+      <nav className="glass-light flex justify-between items-center px-6 py-4 md:px-5 fixed top-3 left-1/2 -translate-x-1/2 z-50 w-[90%] md:w-[85%] rounded-3xl border border-white/40 cursor-pointer">
         <div className="flex items-center scale-75 md:scale-100">
           <svg width="50" height="50" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="45" fill="none" stroke="#2d4778" strokeWidth="8"/>
             <text x="50" y="65" textAnchor="middle" fill="#2d4778" className="text-4xl font-bold font-outfit">$</text>
           </svg>
         </div>
-        <div className="text-slate-500 text-sm md:text-base font-medium text-center hidden lg:block tracking-tight">
+        <div className="text-slate-500 text-sm md:text-base font-medium text-center hidden lg:block tracking-tight md:tracking-wider">
           India's Most Trusted AI Financial Advisor
         </div>
         <button 
-          className="bg-indigo-800 text-white px-6 py-2.5 md:px-8 md:py-4 rounded-2xl text-sm md:text-base font-semibold shadow-lg shadow-indigo-200 transition-all duration-300 hover:bg-black hover:shadow-xl cursor-pointer"
+          className="bg-indigo-800 text-white px-6 py-2.5 md:px-8 md:py-4 rounded-2xl text-sm md:text-base transition-all duration-300 hover:bg-black cursor-pointer font-poppins"
           onClick={onLoginClick}
         >
           Login / Register
@@ -24,7 +24,7 @@ const LandingPage = ({ onGetStarted, onLoginClick }) => {
       </nav>
       
     
-      <main className="relative flex-1 flex flex-col items-center justify-center px-6 py-40 md:py-45 text-center max-w-[1400px] mx-auto gap-10 w-full mt-10">
+      <main className="relative flex-1 flex flex-col items-center justify-center px-6 py-40 md:py-46 text-center max-w-[1400px] mx-auto gap-8 w-full mt-10">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 opacity-20 blur-[120px] pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-400 rounded-full"></div>
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-300 rounded-full"></div>
@@ -34,7 +34,7 @@ const LandingPage = ({ onGetStarted, onLoginClick }) => {
           <Logo />
         </div>
         
-        <h1 className="text-slate-800 text-3xl md:text-5xl lg:text-5xl font-extralight my-4 max-w-[1000px] w-full px-4 tracking-tighter leading-[1.1] animate-in fade-in slide-in-from-bottom-5 duration-700">
+        <h1 className="text-slate-800 text-3xl md:text-5xl lg:text-5xl font-poppins my-3 max-w-[1000px] w-full px-4 tracking-tighter leading-[1.1] animate-in fade-in slide-in-from-bottom-5 duration-700 mt-[4rem]">
           Elevating Indian Wealth <br className="hidden md:block" /> 
           <span className="font-bold text-indigo-800 italic">One AI Suggestion</span> At A Time.
         </h1>
@@ -44,10 +44,10 @@ const LandingPage = ({ onGetStarted, onLoginClick }) => {
         </p>
 
         <button 
-          className="bg-black text-white px-10 py-5 rounded-3xl text-lg md:text-xl font-bold font-outfit shadow-2xl transition-all duration-300 hover:bg-indigo-800 hover:scale-100 active:scale-95 whitespace-nowrap animate-in zoom-in-50 duration-500 mt-4 cursor-pointer"
+          className="bg-black text-white px-10 py-5 rounded-3xl text-lg md:text-x font-poppins font-semibold shadow-2xl transition-all duration-300 hover:bg-indigo-800 hover:scale-100 active:scale-95 whitespace-nowrap animate-in zoom-in-50 duration-500 mt-4 cursor-pointer"
           onClick={onGetStarted}
         >
-          Get Started Now — It's Free 
+          Get Started Now - Free 
         </button>
 
         <div className="flex items-center gap-3 text-slate-400 mt-8 text-sm md:text-lg animate-fade-in duration-1000">
