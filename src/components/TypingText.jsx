@@ -1,33 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
 
-const TypingText = ({ text, delay = 50, className = '', onComplete, showCursor = true }) => {
-  const [displayText, setDisplayText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTyping, setIsTyping] = useState(true);
+const TypingText = ({ 
+  text, 
+  mode = 'letter', 
+  delay = 50, 
+  stagger = 0.1, 
+  className = '', 
+  onComplete,
+  showCursor = false,
+  animationClass = 'animate-reveal'
+}) => {
+  const [items, setItems] = useState([]);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (currentIndex < text.length) {
-      const timeout = setTimeout(() => {
-        setDisplayText(prev => prev + text[currentIndex]);
-        setCurrentIndex(prev => prev + 1);
-      }, delay);
-
-      return () => clearTimeout(timeout);
-    } else {
-      setIsTyping(false);
+    const splitText = mode === 'word' ? text.split(' ') : text.split('');
+    setItems(splitText);
+    
+    const timer = setTimeout(() => {
+      setIsVisible(true);
       if (onComplete) {
-        onComplete();
+        const totalDuration = (splitText.length * stagger * 1000) + 200; // reduced buffer
+        setTimeout(onComplete, totalDuration);
       }
-    }
-  }, [currentIndex, text, delay, onComplete]);
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [text, mode, delay, stagger, onComplete]);
 
   return (
-    <span className={className}>
-      {displayText}
-      {showCursor && isTyping && <span className="blinking-cursor ml-0.5 text-[#2d4778]">|</span>}
+    <span className={`inline flex-wrap whitespace-pre-wrap ${className}`}>
+      {items.map((item, index) => (
+        <span
+          key={`${item}-${index}`}
+          className={`inline-block opacity-0 ${isVisible ? animationClass : ''}`}
+          style={{
+            animationDelay: `${index * stagger}s`,
+            marginRight: mode === 'word' ? '0.25em' : '0'
+          }}
+        >
+          {item === ' ' ? '\u00A0' : (item || '\u00A0')}
+        </span>
+      ))}
     </span>
   );
 };
 
 export default TypingText;
+
