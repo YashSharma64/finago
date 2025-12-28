@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
-import './App.css';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('landing');
@@ -25,7 +24,7 @@ function App() {
   };
 
   return (
-    <div className="app">
+    <div className="w-full min-h-screen bg-white">
       {currentPage === 'landing' ? (
         <LandingPage onGetStarted={handleLoginClick} onLoginClick={handleLoginClick} />
       ) : (

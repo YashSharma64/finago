@@ -25,9 +25,9 @@ const TypingText = ({ text, delay = 50, className = '', onComplete, showCursor =
   return (
     <span className={className}>
       {displayText}
-      {showCursor && isTyping && <span className="blinking-cursor">|</span>}
+      {showCursor && isTyping && <span className="blinking-cursor ml-0.5 text-[#2d4778]">|</span>}
     </span>
   );
 };
 
-export default TypingText; 
+export default TypingText;

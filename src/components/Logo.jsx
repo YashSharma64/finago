@@ -3,20 +3,20 @@ import TypingText from './TypingText';
 
 const Logo = () => {
   return (
-    <div className="logo">
-      <svg width="120" height="120" viewBox="0 0 120 120">
-        <circle cx="60" cy="60" r="44" fill="none" stroke="#2d4778" strokeWidth="8"/>
-        <text x="60" y="78" textAnchor="middle" fill="#2d4778" fontSize="48">$</text>
+    <div className="flex items-center gap-1.5 mb-4 scale-100 md:scale-120 w-full justify-center flex-row">
+      <svg width="80" height="80" viewBox="0 0 100 100" className="md:w-[120px] md:h-[120px]">
+        <circle cx="50" cy="50" r="44" fill="none" stroke="#2d4778" strokeWidth="8"/>
+        <text x="50" y="65" textAnchor="middle" fill="#2d4778" className="text-4xl md:text-5xl font-bold font-outfit">$</text>
       </svg>
-      <span className="logo-text">
+      <span className="font-outfit text-6xl md:text-[9.5rem] text-[#2d4778] font-extralight tracking-tighter break-keep leading-none text-center whitespace-nowrap flex items-center">
         <TypingText 
           text="finago.ai" 
           delay={150} 
-          className="animated-logo-text"
+          className="inline-block font-outfit text-6xl md:text-[9.5rem] text-[#2d4778] font-extralight tracking-tight mt-2 md:mt-0 transition-all duration-500"
         />
       </span>
     </div>
   );
 };
 
-export default Logo; 
+export default Logo;
