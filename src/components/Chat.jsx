@@ -60,7 +60,7 @@ Previous messages: ${messages.map(m => `${m.role === 'user' ? 'User' : 'Finago'}
 
 Current question: ${input}
 
-Instructions: Respond as Finago, the AI financial assistant Who will get to Know the personal details of the user and will provide the best possible advice. Follow all guidelines and restrictions in the training context above. Format your response using Markdown for readability.`;
+Instructions: Respond as Finago, the AI financial assistant Who will answer to the Indian user and will provide the best possible advice. Follow all guidelines and restrictions in the training context above. Format your response using Markdown for readability.`;
 
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`, {
         method: 'POST',
@@ -93,7 +93,7 @@ Instructions: Respond as Finago, the AI financial assistant Who will get to Know
       const data = await response.json();
       const assistantResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated';
       
-      // Implement robust letter-by-letter typing
+    
       setMessages(prev => [
         ...prev, 
         { 
@@ -105,8 +105,10 @@ Instructions: Respond as Finago, the AI financial assistant Who will get to Know
       const intervalId = setInterval(() => {
         setMessages(prev => {
           const lastMsg = prev[prev.length - 1];
-          if (lastMsg.content.length < assistantResponse.length) {
-            const nextContent = assistantResponse.substring(0, lastMsg.content.length + 1);
+          
+          if (lastMsg && lastMsg.role === 'assistant' && lastMsg.content.length < assistantResponse.length) {
+            
+            const nextContent = assistantResponse.substring(0, lastMsg.content.length + 2); 
             const newMessages = [...prev];
             newMessages[newMessages.length - 1] = {
               ...lastMsg,
@@ -118,7 +120,7 @@ Instructions: Respond as Finago, the AI financial assistant Who will get to Know
             return prev;
           }
         });
-      }, 5); // Faster typing for better feel
+      }, 20); // 20ms is smoother and less CPU intensive than 5ms
 
     } catch (error) {
       console.error('Error calling Gemini API:', error);
@@ -136,7 +138,7 @@ Instructions: Respond as Finago, the AI financial assistant Who will get to Know
 
   return (
     <div className="flex flex-col h-full w-full bg-[#070708] overflow-hidden relative rounded-[2rem] border border-white/5 shadow-2xl">
-      {/* Scrollable Messages Area */}
+      
       <div className="flex-1 p-4 md:p-8 overflow-y-auto flex flex-col gap-6 scroll-smooth pb-32">
         {messages.length === 0 && (
           <div className="flex-1 flex flex-col items-center justify-center text-center text-white/30 p-8 gap-6 h-full min-h-[400px]">
@@ -186,7 +188,7 @@ Instructions: Respond as Finago, the AI financial assistant Who will get to Know
         <div ref={messagesEndRef} />
       </div>
       
-      {/* Input Overlay */}
+      {/* Input */}
       <div className="p-4 md:p-6 bg-[#0a0a0c]/60 backdrop-blur-xl border-t border-white/5">
         <form 
           className="relative max-w-4xl mx-auto flex gap-3 items-center"
