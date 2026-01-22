@@ -9,7 +9,7 @@ const Chat = ({ userData }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [trainingContext, setTrainingContext] = useState('');
   const messagesEndRef = useRef(null);
-  const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+  
   
 
   useEffect(() => {
@@ -62,19 +62,13 @@ Current question: ${input}
 
 Instructions: Respond as Finago, the AI financial assistant Who will answer to the Indian user and will provide the best possible advice. Follow all guidelines and restrictions in the training context above. Format your response using Markdown for readability.`;
 
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`, {
+      const response = await fetch('/api/gemini', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                { text: promptWithContext }
-              ]
-            }
-          ],
+          prompt: promptWithContext,
           generationConfig: {
             temperature: 0.7,
             topK: 40,
@@ -86,12 +80,12 @@ Instructions: Respond as Finago, the AI financial assistant Who will answer to t
       
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('Gemini API error:', errorData);
-        throw new Error(errorData.error?.message || 'Error calling Gemini API');
+        console.error('Backend API error:', errorData);
+        throw new Error(errorData.error || 'Error calling backend service');
       }
       
       const data = await response.json();
-      const assistantResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated';
+      const assistantResponse = data.text || 'No response generated';
       
     
       setMessages(prev => [
