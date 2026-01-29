@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { buildTrainingContext } from '../utils/trainingContext';
+
+const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
 const Chat = ({ userData }) => {
   const [input, setInput] = useState('');
@@ -36,6 +39,16 @@ const Chat = ({ userData }) => {
     setIsLoading(true);
 
     try {
+      const model = genAI.getGenerativeModel({ 
+        model: "gemini-2.5-flash",
+        generationConfig: {
+          temperature: 0.7,
+          topK: 40,
+          topP: 0.95,
+          maxOutputTokens: 1024,
+        },
+      });
+
       const promptWithContext = `
 ${trainingContext}
 
@@ -45,27 +58,9 @@ Current Question: ${input}
 Instructions: Respond as Finago, the AI financial assistant. Provide clear, professional, and helpful financial advice tailored for the Indian landscape. Use Markdown for formatting.
 `;
 
-      const response = await fetch('/api/gemini', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          prompt: promptWithContext,
-          generationConfig: {
-            temperature: 0.7,
-            topK: 40,
-            topP: 0.95,
-            maxOutputTokens: 1024,
-          },
-        }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Connection error');
-      }
-
-      const data = await response.json();
-      const assistantResponse = data.text || 'I apologize, but I could not generate a response.';
+      const result = await model.generateContent(promptWithContext);
+      const response = await result.response;
+      const assistantResponse = response.text() || 'I apologize, but I could not generate a response.';
 
       setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
 
