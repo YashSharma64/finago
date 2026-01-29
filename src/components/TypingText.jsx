@@ -7,7 +7,6 @@ const TypingText = ({
   stagger = 0.1, 
   className = '', 
   onComplete,
-  showCursor = false,
   animationClass = 'animate-reveal'
 }) => {
   const [items, setItems] = useState([]);

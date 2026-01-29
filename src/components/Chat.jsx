@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { buildTrainingContext } from '../utils/trainingContext';
-import TypingText from './TypingText';
 
 const Chat = ({ userData }) => {
   const [input, setInput] = useState('');
@@ -9,8 +8,6 @@ const Chat = ({ userData }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [trainingContext, setTrainingContext] = useState('');
   const messagesEndRef = useRef(null);
-  
-  
 
   useEffect(() => {
     const loadContext = async () => {
@@ -21,52 +18,36 @@ const Chat = ({ userData }) => {
         console.error("Error loading training context:", error);
       }
     };
-    
     loadContext();
   }, []);
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages, isLoading]);
-  
-
-  const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const handleInputChange = (e) => {
-    setInput(e.target.value);
-  };
-
-  
-
+  }, [messages, isLoading]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
-    
+
     const userMessage = { role: 'user', content: input };
     setMessages(prev => [...prev, userMessage]);
     
     setInput('');
     setIsLoading(true);
-    
+
     try {
-      const promptWithContext = `${trainingContext}
+      const promptWithContext = `
+${trainingContext}
 
 User: ${userData?.name || 'Anonymous'}
-Date: ${new Date().toLocaleDateString()}
-Previous messages: ${messages.map(m => `${m.role === 'user' ? 'User' : 'Finago'}: ${m.content}`).join('\n')}
+Current Question: ${input}
 
-Current question: ${input}
-
-Instructions: Respond as Finago, the AI financial assistant Who will answer to the Indian user and will provide the best possible advice. Follow all guidelines and restrictions in the training context above. Format your response using Markdown for readability.`;
+Instructions: Respond as Finago, the AI financial assistant. Provide clear, professional, and helpful financial advice tailored for the Indian landscape. Use Markdown for formatting.
+`;
 
       const response = await fetch('/api/gemini', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           prompt: promptWithContext,
           generationConfig: {
@@ -77,53 +58,37 @@ Instructions: Respond as Finago, the AI financial assistant Who will answer to t
           },
         }),
       });
-      
+
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('Backend API error:', errorData);
-        throw new Error(errorData.error || 'Error calling backend service');
+        throw new Error(errorData.error || 'Connection error');
       }
-      
+
       const data = await response.json();
-      const assistantResponse = data.text || 'No response generated';
-      
-    
-      setMessages(prev => [
-        ...prev, 
-        { 
-          role: 'assistant', 
-          content: ''
-        }
-      ]);
+      const assistantResponse = data.text || 'I apologize, but I could not generate a response.';
+
+      setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
 
       const intervalId = setInterval(() => {
         setMessages(prev => {
           const lastMsg = prev[prev.length - 1];
-          
           if (lastMsg && lastMsg.role === 'assistant' && lastMsg.content.length < assistantResponse.length) {
-            
-            const nextContent = assistantResponse.substring(0, lastMsg.content.length + 2); 
+            const nextContent = assistantResponse.substring(0, lastMsg.content.length + 2);
             const newMessages = [...prev];
-            newMessages[newMessages.length - 1] = {
-              ...lastMsg,
-              content: nextContent
-            };
+            newMessages[newMessages.length - 1] = { ...lastMsg, content: nextContent };
             return newMessages;
           } else {
             clearInterval(intervalId);
             return prev;
           }
         });
-      }, 20); // 20ms is smoother and less CPU intensive than 5ms
+      }, 20);
 
     } catch (error) {
-      console.error('Error calling Gemini API:', error);
+      console.error('Chat Error:', error);
       setMessages(prev => [
-        ...prev, 
-        { 
-          role: 'assistant', 
-          content: `Sorry, I encountered an error with the AI service. This might be due to model availability or API version. Technical detail: ${error.message}`
-        }
+        ...prev,
+        { role: 'assistant', content: "I'm having trouble connecting right now. Please try again in a moment." }
       ]);
     } finally {
       setIsLoading(false);
@@ -132,15 +97,14 @@ Instructions: Respond as Finago, the AI financial assistant Who will answer to t
 
   return (
     <div className="flex flex-col h-full w-full bg-[#070708] overflow-hidden relative rounded-[2rem] border border-white/5 shadow-2xl">
-      
       <div className="flex-1 p-4 md:p-8 overflow-y-auto flex flex-col gap-6 scroll-smooth pb-32">
         {messages.length === 0 && (
           <div className="flex-1 flex flex-col items-center justify-center text-center text-white/30 p-8 gap-6 h-full min-h-[400px]">
             <div className="w-24 h-24 bg-indigo-500/10 rounded-[2rem] flex items-center justify-center text-5xl animate-bounce duration-[3s]">AI</div>
             <div className="max-w-md space-y-2">
-              <h3 className="text-white font-bold text-xl tracking-tight">Your AI Financial Companion</h3>
+              <h3 className="text-white font-bold text-xl tracking-tight">Financial Companion</h3>
               <p className="text-sm font-light leading-relaxed">
-                Hello {userData?.name || 'there'}! I'm Finago. I can help you with budgeting, investing, or retirement. Ask me anything about your finances!
+                Hello {userData?.name || 'there'}! I'm Finago. Ask me anything about budgeting, investing, or taxes.
               </p>
             </div>
           </div>
@@ -181,34 +145,25 @@ Instructions: Respond as Finago, the AI financial assistant Who will answer to t
         )}
         <div ref={messagesEndRef} />
       </div>
-      
-      {/* Input */}
+
       <div className="p-4 md:p-6 bg-[#0a0a0c]/60 backdrop-blur-xl border-t border-white/5">
-        <form 
-          className="relative max-w-4xl mx-auto flex gap-3 items-center"
-          onSubmit={handleSubmit}
-        >
+        <form className="relative max-w-4xl mx-auto flex gap-3 items-center" onSubmit={handleSubmit}>
           <div className="relative flex-1 group">
             <input 
               type="text"
               value={input}
-              onChange={handleInputChange}
-              placeholder="Ask Finago any financial question..."
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask Finago a question..."
               className="w-full bg-white/[0.03] border border-white/10 p-4 md:p-5 pr-12 rounded-2xl text-white text-sm md:text-base outline-none placeholder:text-white/20 focus:border-indigo-500/50 focus:bg-white/[0.06] transition-all shadow-inner"
               disabled={isLoading}
             />
-            {isLoading && (
-              <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                <div className="w-5 h-5 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin"></div>
-              </div>
-            )}
           </div>
           <button 
             type="submit" 
-            className="bg-indigo-600 text-white p-4 md:p-5 rounded-2xl cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed hover:bg-indigo-500 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-indigo-600/20 flex items-center justify-center shrink-0"
+            className="bg-indigo-600 text-white p-4 md:p-5 rounded-2xl cursor-pointer hover:bg-indigo-500 transition-all disabled:opacity-30 flex items-center justify-center"
             disabled={isLoading || !input.trim()}
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <line x1="22" y1="2" x2="11" y2="13"></line>
               <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
             </svg>

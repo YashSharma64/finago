@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Login = ({ onClose, onContinue }) => {
+const Login = ({ onContinue }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: ''
