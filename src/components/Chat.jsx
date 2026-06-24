@@ -39,6 +39,10 @@ const Chat = ({ userData }) => {
     setIsLoading(true);
 
     try {
+      if (!import.meta.env.VITE_GEMINI_API_KEY) {
+        throw new Error('API Key is missing. Please check your .env file.');
+      }
+
       const model = genAI.getGenerativeModel({ 
         model: "gemini-2.5-flash",
         generationConfig: {
@@ -81,9 +85,13 @@ Instructions: Respond as Finago, the AI financial assistant. Provide clear, prof
 
     } catch (error) {
       console.error('Chat Error:', error);
+      const errorMessage = error.message?.includes('model') 
+        ? "I'm having trouble with the AI model configuration. Please try again later."
+        : `I'm having trouble connecting: ${error.message}`;
+      
       setMessages(prev => [
         ...prev,
-        { role: 'assistant', content: "I'm having trouble connecting right now. Please try again in a moment." }
+        { role: 'assistant', content: errorMessage }
       ]);
     } finally {
       setIsLoading(false);
